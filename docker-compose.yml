@@ -1,6 +1,6 @@
 version: "3"
 services:
-  laravel_php:
+  php:
     build:
       dockerfile: "php/php.Dockerfile"
       context: ./
@@ -17,7 +17,7 @@ services:
       - frontend
     depends_on:
       - "laravel_database"
-  laravel_web:
+  web:
     image: nginx:latest
     container_name: web
     ports:
@@ -31,7 +31,7 @@ services:
       - frontend
     depends_on:
       - "laravel_php"
-  laravel_database:
+  database:
     build:
       dockerfile: "mysql/mysql.Dockerfile"
       context: ./
@@ -47,7 +47,7 @@ services:
       - backend
     volumes:
       - db_laravel:/data
-  laravel_redis:
+  redis:
     container_name: laravel-redis
     image: redis:5
     volumes:
